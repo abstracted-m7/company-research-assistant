@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPANY RESEARCH BY MANISH</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body class="animated-gradient-bg text-gray-100 font-sans antialiased h-screen flex flex-col overflow-hidden relative">
+
+    <!-- Animated Bubbles -->
+    <div class="bubbles-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="bg-gray-800 border-b border-gray-700 py-4 px-6 flex justify-between items-center shadow-md z-10">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 p-2 rounded-lg relative overflow-hidden group">
+                <i class="fa-solid fa-lightbulb text-white animate-bulb relative z-10"></i>
+            </div>
+            <h1 class="text-xl font-bold tracking-tight text-white">COMPANY RESEARCH BY MANISH</h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <!-- Discord Settings Button -->
+            <button id="discord-settings-btn"
+                class="text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-gray-700">
+                <i class="fa-brands fa-discord text-xl"></i>
+            </button>
+
+            <!-- AI Model Selector -->
+            <div class="relative">
+                <select id="ai-model"
+                    class="appearance-none bg-gray-700 border border-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8 text-white">
+                    <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+                    <option value="openai/gpt-4o">GPT-4o</option>
+                    <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+                    <option value="google/gemini-flash-1.5">Gemini 1.5 Flash</option>
+                    <option value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth" id="chat-container">
+
+        <!-- Welcome Message -->
+        <div class="max-w-3xl mx-auto flex gap-4 mb-6 animate-fade-in">
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center">
+                <i class="fa-solid fa-robot text-white text-sm"></i>
+            </div>
+            <div class="bg-gray-800 rounded-2xl p-4 md:p-5 shadow-sm border border-gray-700/50 flex-1">
+                <h3 class="text-lg font-semibold text-white mb-2">Hello! I'm your AI Research Assistant.</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    I can generate a comprehensive report on any company. Please provide a <strong>Company Name</strong>
+                    or a <strong>Website URL</strong> to get started.
+                </p>
+                <div class="mt-4 flex gap-2">
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">Ex: Stripe</span>
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">Ex: https://tesla.com</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat History (dynamically populated) -->
+        <div id="chat-history" class="max-w-3xl mx-auto flex flex-col gap-6 pb-24"></div>
+
+    </main>
+
+    <!-- Input Area -->
+    <footer class="bg-gray-900 border-t border-gray-700 p-4 shrink-0 z-10">
+        <div class="max-w-3xl mx-auto relative">
+            <form id="research-form" class="relative flex items-center">
+                <input type="text" id="company-input"
+                    placeholder="Enter company name (e.g. Microsoft) or URL (e.g. https://microsoft.com)..."
+                    class="w-full bg-gray-800 border border-gray-600 text-white text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-4 pr-14 shadow-lg transition-all focus:shadow-blue-900/20"
+                    required autocomplete="off">
+                <button type="submit" id="submit-btn"
+                    class="absolute right-2 top-2 bottom-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 flex items-center justify-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-500 mt-2">© 2026–2027 COMPANY RESEARCH BY MANISH. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Discord Settings Modal -->
+    <div id="discord-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity">
+        <div
+            class="bg-gray-800 rounded-2xl w-full max-w-md p-6 shadow-2xl transform scale-95 transition-transform border border-gray-700">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-brands fa-discord text-indigo-400"></i> Discord Integration
+                </h2>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form id="discord-settings-form" class="space-y-4">
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-300">Applicant Name</label>
+                    <input type="text" id="discord-applicant-name"
+                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                </div>
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-300">Applicant Email</label>
+                    <input type="email" id="discord-applicant-email"
+                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                </div>
+                <div class="border-t border-gray-700 my-4 pt-4"></div>
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-300">Bot Token</label>
+                    <input type="password" id="discord-bot-token"
+                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                </div>
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-300">Channel ID</label>
+                    <input type="text" id="discord-channel-id"
+                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                </div>
+
+                <button type="submit"
+                    class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
+                    Save Configuration
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
