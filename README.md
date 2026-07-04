@@ -77,8 +77,8 @@ pip install -r requirements.txt
 ### 3. Environment Variables
 Create a file named `.env` in the root directory and add your API keys:
 ```env
-SERPER_API_KEY="your_serper_api_key"
-OPENROUTER_API_KEY="your_openrouter_api_key"
+SERPER_API_KEY="my_serper_api_key"
+OPENROUTER_API_KEY="my_openrouter_api_key"
 ```
 *(Get your free keys at [serper.dev](https://serper.dev/) and [openrouter.ai](https://openrouter.ai/)).*
 
@@ -87,7 +87,7 @@ Start the Flask development server:
 ```bash
 python app.py
 ```
-Open your web browser and navigate to: **http://127.0.0.1:5000**
+Open your web browser and navigate to: **[COMPANY RESEARCH BY MANISH](https://company-research-assistant-z4mw.onrender.com)**
 
 ## 🌐 Deployment
 This application is fully production-ready and configured to be deployed on platforms like **Render.com** using the included `gunicorn` dependency.
